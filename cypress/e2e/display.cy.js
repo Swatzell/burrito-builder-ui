@@ -26,5 +26,7 @@ describe('Initial Display', () => {
     cy.get('.order').should('have.length', 2);
     cy.get('.order').first().contains('Pat');
     cy.get('.order').last().contains('Alex');
+    cy.get('.order').first().contains('beans');
+    cy.get('.order').last().contains('sour cream');
   });
 });
