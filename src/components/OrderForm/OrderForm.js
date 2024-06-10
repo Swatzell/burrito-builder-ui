@@ -28,12 +28,17 @@ function OrderForm(props) {
     "cilantro",
     "sour cream",
   ];
+
+  const addIngredient = (ingredient) => {
+    setIngredients([...ingredients, ingredient]);
+  };
+
   const ingredientButtons = possibleIngredients.map((ingredient) => {
     return (
       <button
         key={ingredient}
         name={ingredient}
-        // onClick={(e) => }
+        onClick={(e) => () => addIngredient(ingredient)}
       >
         {ingredient}
       </button>
@@ -47,7 +52,7 @@ function OrderForm(props) {
         placeholder="Name"
         name="name"
         value={name}
-        // onChange={(e) => }
+        onChange={(e) => }
       />
 
       {ingredientButtons}
