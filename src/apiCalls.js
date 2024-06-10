@@ -22,3 +22,11 @@ export const addOrder = async (order) => {
   return newOrder;
 };
 
+export const deleteOrder = async (orderId) => {
+  const response = await fetch(`http://localhost:3001/api/v1/orders/${orderId}`, {
+    method: "DELETE",
+  });
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+};
