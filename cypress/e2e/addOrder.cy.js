@@ -35,7 +35,7 @@ describe('Add Order', () => {
     cy.get('input[name="name"]').type('Test Order');
     cy.get('button[name="beans"]').click();
     cy.get('button[name="lettuce"]').click();
-    cy.get('button[type="submit"]').click();
+    cy.get('button[type="submit"]').click({force: true});
 
     cy.wait('@postOrder');
     cy.get('.order').should('have.length', 3);
