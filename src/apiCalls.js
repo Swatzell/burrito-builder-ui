@@ -1,14 +1,8 @@
 export const getOrders = async () => {
-  return fetch("http://localhost:3001/api/v1/orders")
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error('Failed to get orders');
-    }
-    return response.json();
-  })
-  .then((data) => data.orders)
-  .catch((error) => {
-    console.error("Error getting orders:", error);
-    throw error;
-  });
+  const response = await fetch("http://localhost:3001/api/v1/orders")
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  const data = await response.json();
+  return data.orders;
 };
