@@ -22,8 +22,19 @@ describe('Form', () => {
     cy.wait('@getOrders');
   });
 
-  it('should not submit an order without a name and at least one ingredient', () => {
+  it('should not be able to submit an order without a name', () => {
     cy.get('button[name="beans"]').click();
     cy.get('button[type="submit"]').should('be.disabled');
   });
-})
+
+  it('should not be able to submit an order without a ingredient', () => {
+  cy.get('input[name="name"]').type('Test Order');
+  cy.get('button[type="submit"]').should('be.disabled');
+});
+
+it('should submit the order when both name and ingredient are provided', () => {
+  cy.get('input[name="name"]').type('Test Order');
+  cy.get('button[name="beans"]').click();
+  cy.get('button[type="submit"]').should('not.be.disabled');
+});
+});
