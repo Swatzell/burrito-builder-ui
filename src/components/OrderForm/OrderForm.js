@@ -4,10 +4,12 @@ import { addOrder } from "../../apiCalls";
 function OrderForm({ setOrders, orders, setError }) {
   const [name, setName] = useState("");
   const [ingredients, setIngredients] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (name && ingredients.length) {
+      setIsSubmitting(true);
       try {
         const newOrder = await addOrder({ name, ingredients });
         setOrders([...orders, newOrder]);
@@ -15,7 +17,9 @@ function OrderForm({ setOrders, orders, setError }) {
         setError("");
       } catch (error) {
         setError(error.message);
-      }
+      }finally {
+        setIsSubmitting(false);
+    }
     }
   };
 
@@ -48,7 +52,7 @@ function OrderForm({ setOrders, orders, setError }) {
       <button
         key={ingredient}
         name={ingredient}
-        onClick={(e) => () => addIngredient(ingredient)}
+        onClick={() => addIngredient(ingredient)}
       >
         {ingredient}
       </button>
@@ -69,7 +73,9 @@ function OrderForm({ setOrders, orders, setError }) {
 
       <p>Order: {ingredients.join(", ") || "Nothing selected"}</p>
 
-      <button type="submit">Submit Order</button>
+      <button type="submit" disabled={!name || ingredients.length === 0 || isSubmitting}>
+        {isSubmitting ? "Submitting..." : "Submit Order"}
+      </button>
     </form>
   );
 }
