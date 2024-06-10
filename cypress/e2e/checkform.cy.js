@@ -1,6 +1,6 @@
 describe('Form', () => {
   beforeEach(() => {
-    cy.intercept('GET', '/api/v1/orders', {
+    cy.intercept('GET', 'http://localhost:3001/api/v1/orders', {
       statusCode: 200,
       body: {
         orders: [

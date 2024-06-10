@@ -1,6 +1,6 @@
 describe('Add Order', () => {
   beforeEach(() => {
-    cy.intercept('GET', '/api/v1/orders', {
+    cy.intercept('GET', 'http://localhost:3001/api/v1/orders', {
       statusCode: 200,
       body: {
         orders: [
@@ -18,7 +18,7 @@ describe('Add Order', () => {
       }
     }).as('getOrders');
 
-    cy.intercept('POST', '/api/v1/orders', {
+    cy.intercept('POST', 'http://localhost:3001/api/v1/orders', {
       statusCode: 201,
       body: {
         id: 3,
