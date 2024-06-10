@@ -1,13 +1,23 @@
 import { useState } from "react";
+import { addOrder } from "../../apiCalls";
 
-function OrderForm(props) {
+function OrderForm({ setOrders, orders, setError }) {
   const [name, setName] = useState("");
   const [ingredients, setIngredients] = useState([]);
 
-  function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    clearInputs();
-  }
+    if (name && ingredients.length) {
+      try {
+        const newOrder = await addOrder({ name, ingredients });
+        setOrders([...orders, newOrder]);
+        clearInputs();
+        setError("");
+      } catch (error) {
+        setError(error.message);
+      }
+    }
+  };
 
   function clearInputs() {
     setName("");
@@ -46,7 +56,7 @@ function OrderForm(props) {
   });
 
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder="Name"
@@ -59,7 +69,7 @@ function OrderForm(props) {
 
       <p>Order: {ingredients.join(", ") || "Nothing selected"}</p>
 
-      <button onClick={(e) => handleSubmit(e)}>Submit Order</button>
+      <button type="submit">Submit Order</button>
     </form>
   );
 }
