@@ -21,3 +21,9 @@ describe('Form', () => {
     cy.visit('http://localhost:3000/');
     cy.wait('@getOrders');
   });
+
+  it('should not submit an order without a name and at least one ingredient', () => {
+    cy.get('button[name="beans"]').click();
+    cy.get('button[type="submit"]').should('be.disabled');
+  });
+})
